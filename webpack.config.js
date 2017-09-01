@@ -14,7 +14,7 @@ const SRC_DIR_RESOLVED = Path.resolve(__dirname, SOURCE_DIRECTORY_PATH);
 /* ***WEBPACK CONFIGURATIONS*** */
 
 // Entry config
-const entry = `${SRC_DIR_RESOLVED}/js/main.js`;
+const entry = `${SRC_DIR_RESOLVED}/js/main.jsx`;
 
 // Output config
 const output = {
@@ -42,9 +42,21 @@ const plugins = [
   }),
 ];
 
+// Module config (since 'module' keyword is already used in js)
+const moduleConfig = {
+  rules: [
+    // Babel
+    {
+      test: [/\.jsx?$/, /\.js?$/],
+      use: ['babel-loader'],
+      exclude: [/node_modules/, /\.spec\.jsx?$/],
+    },
+  ],
+};
+
 // resolve config
 const resolve = {
-  extensions: ['.js'],
+  extensions: ['.js', '.jsx'],
 };
 
 const config = {
@@ -54,6 +66,7 @@ const config = {
   devServer,
   plugins,
   resolve,
+  module: moduleConfig,
 };
 
 module.exports = config;
