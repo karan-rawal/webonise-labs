@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './App.scss';
 
 /**
  * The presentational react component.
@@ -9,7 +10,7 @@ import PropTypes from 'prop-types';
  * @returns 
  */
 export default function AppComponent(props) {
-  return (<div className="app-component">
+  return (<div className="app">
     The App Component. This is the passed message: {props.message}
   </div>);
 }

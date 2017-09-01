@@ -2,6 +2,7 @@
 const Path = require('path');
 const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Some config variables
 const DISTRIBUTION_DIRECTORY_PATH = './dist';
@@ -40,6 +41,7 @@ const plugins = [
     template: `${SRC_DIR_RESOLVED}/index.html`,
     filename: `${DIST_DIR_RESOLVED}/index.html`,
   }),
+  new ExtractTextPlugin('css/style.css'),
 ];
 
 // Module config (since 'module' keyword is already used in js)
@@ -50,6 +52,23 @@ const moduleConfig = {
       test: [/\.jsx?$/, /\.js?$/],
       use: ['babel-loader'],
       exclude: [/node_modules/, /\.spec\.jsx?$/],
+    },
+    {
+      test: /\.(css|scss)$/,
+      use: ExtractTextPlugin.extract({
+        use: [{
+          loader: 'css-loader',
+          options: {
+            sourceMap: true,
+          },
+        }, {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+          },
+        }],
+        fallback: 'style-loader',
+      }),
     },
   ],
 };
