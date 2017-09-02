@@ -70,6 +70,14 @@ const moduleConfig = {
         fallback: 'style-loader',
       }),
     },
+    {
+      test: /\.(eot|ttf|woff|woff2)$/,
+      use: 'file-loader?name=[name]-[hash].[ext]&outputPath=fonts/&publicPath=../',
+    },
+    {
+      test: /\.(jpg|png|svg)$/,
+      use: 'file-loader?name=[name]-[hash].[ext]&outputPath=images/&publicPath=../',
+    },
   ],
 };
 

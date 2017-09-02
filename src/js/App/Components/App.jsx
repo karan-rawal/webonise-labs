@@ -10,7 +10,7 @@ import './App.scss';
  * @returns 
  */
 export default function AppComponent(props) {
-  return (<div className="app">
+  return (<div className="container app">
     The App Component. This is the passed message: {props.message}
   </div>);
 }
