@@ -12,9 +12,8 @@ import './StudentsTable.scss';
  * @returns 
  */
 export default function StudentsListPage(props) {
-  console.log(props);
   return (<Col xs={12}>
-    <StudentsSearch searchCallback={props.searchCallback} />
+    <StudentsSearch searchKey={props.state.searchKey} searchCallback={props.searchCallback} />
     <StudentsFilter onFilterToggle={props.onFilterToggle} filters={props.state.filters} />
     <StudentsTable onStudentSelect={props.onStudentSelect} filters={props.state.filters} searchKey={props.state.searchKey} studentsData={props.state.studentsData} />
   </Col >);

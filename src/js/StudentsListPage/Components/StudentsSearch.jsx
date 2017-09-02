@@ -15,7 +15,7 @@ const SEARCH_BUTTON_TEXT = 'Search';
  * @returns 
  */
 export default function StudentSearch(props) {
-  let searchKey;
+  let searchKey = props.searchKey;
 
   // called when the text changes. We set the changed text in searchKey.
   const onTextChange = (event) => {
@@ -29,7 +29,7 @@ export default function StudentSearch(props) {
 
   return (<Row className="students-search">
     <Col className="no-padding-right" xs={10}>
-      <CustomInputBox glyphicon={SEARCH_GLYPHICON} onTextChange={onTextChange} placeholder={SEARCH_PLACEHOLDER} />
+      <CustomInputBox onEnterPressed={searchClicked} defaultValue={props.searchKey} glyphicon={SEARCH_GLYPHICON} onTextChange={onTextChange} placeholder={SEARCH_PLACEHOLDER} />
     </Col>
     <Col className="no-padding-left" xs={2}>
       <Button className="search-button" onClick={searchClicked} bsStyle="primary" bsSize="xsmall">{ SEARCH_BUTTON_TEXT }</Button>

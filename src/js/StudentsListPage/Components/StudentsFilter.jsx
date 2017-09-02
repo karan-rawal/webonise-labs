@@ -9,7 +9,6 @@ import { FILTER_TYPES } from '../Constants';
  * @returns 
  */
 export default function StudentsFilter(props) {
-  console.log(props);
   // Maybe we can use a loop for the checkboxes. Keeping it separate for now.
   return (
     <Row>

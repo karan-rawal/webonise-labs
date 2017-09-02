@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { Row, Col, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../App/Constants';
@@ -11,8 +12,6 @@ import './StudentDetailsPage.scss';
  * @returns 
  */
 export default function StudentDetailsPage(props, context) {
-  console.log(context);
-
   const state = context.router.history.location.state;
 
   if (!state) {
@@ -59,7 +58,7 @@ export default function StudentDetailsPage(props, context) {
 }
 
 StudentDetailsPage.contextTypes = {
-  router: React.PropTypes.shape({
-    history: React.PropTypes.object.isRequired,
+  router: PropTypes.shape({
+    history: PropTypes.object.isRequired,
   }),
 };
