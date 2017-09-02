@@ -1,8 +1,9 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import StudentDetailsPage from '../../StudentDetailsPage/Components/StudentDetailsPage';
-import StudentsListPage from '../../StudentsListPage/Components/StudentsListPage';
+import StudentsListPageContainer from '../../StudentsListPage/Container/StudentsListPage';
 import { ROUTES } from '../Constants';
+import { Row, Col } from 'react-bootstrap';
 import './App.scss';
 
 /**
@@ -13,14 +14,18 @@ import './App.scss';
  * @returns 
  */
 export default function AppComponent() {
-  //TODO - Need to handle unknown routes
+  // TODO - Need to handle unknown routes
   return (
     <HashRouter>
-      <div>
-        <Switch>
-          <Route exact path={ROUTES.STUDENTS_ROUTE} component={StudentsListPage} />
-          <Route exact path={ROUTES.STUDENT_DETAILS_ROUTE} component={StudentDetailsPage} />
-        </Switch>
+      <div className="container">
+        <Row>
+          <Col xsOffset={2} xs={8}>
+            <Switch>
+              <Route exact path={ROUTES.STUDENTS_ROUTE} component={StudentsListPageContainer} />
+              <Route exact path={ROUTES.STUDENT_DETAILS_ROUTE} component={StudentDetailsPage} />
+            </Switch>
+          </Col>
+        </Row>
       </div>
     </HashRouter>
   );
