@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import StudentsFilterActions from '../Actions/StudentsFilter';
 import StudentsListPageActions from '../Actions/StudentsListPage';
 import StudentsListPage from '../Components/StudentsListPage';
@@ -8,7 +9,6 @@ class StudentsListPageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}; // to avoid eslint errors
-    console.log(props.state);
     this.onFilterToggle = this.onFilterToggle.bind(this);
     this.searchCallback = this.searchCallback.bind(this);
     this.onStudentSelect = this.onStudentSelect.bind(this);
@@ -24,7 +24,6 @@ class StudentsListPageContainer extends React.Component {
   }
 
   onStudentSelect(event) {
-    console.log(event);
     const student = JSON.parse(event.target.getAttribute('data'));
     this.context.router.history.push({
       pathname: '/student',
@@ -54,8 +53,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 StudentsListPageContainer.contextTypes = {
-  router: React.PropTypes.shape({
-    history: React.PropTypes.object.isRequired,
+  router: PropTypes.shape({
+    history: PropTypes.object.isRequired,
   }),
 };
 

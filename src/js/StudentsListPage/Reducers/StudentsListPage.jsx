@@ -104,7 +104,7 @@ const StudentsListPageReducer = (state = initialState, action) => {
       tempState.searchKey = action.payload.searchKey;
       break;
     default:
-      console.error('Invalid action for students filter reducer');
+      console.info('System actions ignored.');
   }
 
   return tempState;

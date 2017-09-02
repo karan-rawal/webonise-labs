@@ -20,10 +20,16 @@ export default function CustomInputBox(props) {
     glyphElementToRender = <span className={inputGlyphClasses} />;
   }
 
+  const keyPressed = (event) => {
+    if (event.key == 'Enter') {
+      props.onEnterPressed();
+    }
+  };
+
   // return the element to be rendered
   return (
-    <div className="custom-input-text">
-      <input onChange={props.onTextChange} placeholder={props.placeholder} />
+    <div className="no-padding-right custom-input-text">
+      <input onKeyPress={keyPressed} defaultValue={props.defaultValue} onChange={props.onTextChange} placeholder={props.placeholder} />
       {glyphElementToRender}
     </div>
   );

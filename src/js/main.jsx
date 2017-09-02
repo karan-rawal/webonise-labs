@@ -7,6 +7,7 @@ import 'whatwg-fetch';
 import App from './App/Components/App';
 import StudentDetailsPageReducer from './StudentDetailsPage/Reducers/StudentDetailsPage';
 import StudentsListPageReducer from './StudentsListPage/Reducers/StudentsListPage';
+import './main.scss';
 
 const combinedReducers = combineReducers({
   studentDetails: StudentDetailsPageReducer,
