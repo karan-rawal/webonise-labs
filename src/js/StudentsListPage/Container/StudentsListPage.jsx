@@ -10,6 +10,7 @@ class StudentsListPageContainer extends React.Component {
     this.state = {}; // to avoid eslint errors
     console.log(props.state);
     this.onFilterToggle = this.onFilterToggle.bind(this);
+    this.searchCallback = this.searchCallback.bind(this);
   }
 
   componentWillMount() {
@@ -21,9 +22,13 @@ class StudentsListPageContainer extends React.Component {
     this.props.filterAction(filterType);
   }
 
+  searchCallback(searchValue) {
+    this.props.setSearchKeyAction(searchValue);
+  }
+
   render() {
     return (
-      <StudentsListPage onFilterToggle={this.onFilterToggle} state={this.props.state} />
+      <StudentsListPage searchCallback={this.searchCallback} onFilterToggle={this.onFilterToggle} state={this.props.state} />
     );
   }
 }
@@ -35,6 +40,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   filterAction: (filterType) => { dispatch(StudentsFilterActions.toggleFilterAction(filterType)); },
   getStudentsData: () => { StudentsListPageActions.getStudentsAction(dispatch); },
+  setSearchKeyAction: (searchKey) => { dispatch(StudentsListPageActions.setSearchKeyAction(searchKey)); },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsListPageContainer);

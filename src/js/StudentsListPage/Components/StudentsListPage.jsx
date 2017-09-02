@@ -13,8 +13,8 @@ import StudentsTable from './StudentsTable';
 export default function StudentsListPage(props) {
   console.log(props);
   return (<Col xs={12}>
-    <StudentsSearch />
+    <StudentsSearch searchCallback={props.searchCallback} />
     <StudentsFilter onFilterToggle={props.onFilterToggle} filters={props.state.filters} />
-    <StudentsTable studentsData={props.state.studentsData} />
+    <StudentsTable filters={props.state.filters} searchKey={props.state.searchKey} studentsData={props.state.studentsData} />
   </Col >);
 }

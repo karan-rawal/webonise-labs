@@ -1,4 +1,4 @@
-import { ACTION_SET_STUDENTS_DATA } from '../Constants';
+import { ACTION_SET_STUDENTS_DATA, ACTION_SET_SEARCH_KEY } from '../Constants';
 
 const setStudentsDataAction = studentsData => ({
   type: ACTION_SET_STUDENTS_DATA,
@@ -15,9 +15,17 @@ const getStudentsAction = (dispatch) => {
     });
 };
 
+const setSearchKeyAction = searchKey => ({
+  type: ACTION_SET_SEARCH_KEY,
+  payload: {
+    searchKey,
+  },
+});
+
 const StudentsListPageActions = {
   getStudentsAction,
   setStudentsDataAction,
+  setSearchKeyAction,
 };
 
 export default StudentsListPageActions;
