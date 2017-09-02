@@ -22,7 +22,7 @@ export default function CustomInputBox(props) {
 
   // return the element to be rendered
   return (
-    <div className="custom-input-text">
+    <div className="no-padding-right custom-input-text">
       <input onChange={props.onTextChange} placeholder={props.placeholder} />
       {glyphElementToRender}
     </div>

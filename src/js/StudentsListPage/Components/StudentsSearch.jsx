@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Button } from 'react-bootstrap';
+import './StudentsSearch.scss';
 import CustomInputBox from '../../Common/Component/CustomInputBox';
 
 const SEARCH_PLACEHOLDER = 'Search Box';
@@ -26,12 +27,12 @@ export default function StudentSearch(props) {
     props.searchCallback(searchKey);
   };
 
-  return (<Row>
-    <Col xs={8}>
+  return (<Row className="students-search">
+    <Col className="no-padding-right" xs={10}>
       <CustomInputBox glyphicon={SEARCH_GLYPHICON} onTextChange={onTextChange} placeholder={SEARCH_PLACEHOLDER} />
     </Col>
-    <Col xs={4}>
-      <Button width="100%" onClick={searchClicked} bsStyle="primary" bsSize="xsmall">{ SEARCH_BUTTON_TEXT }</Button>
+    <Col className="no-padding-left" xs={2}>
+      <Button className="search-button" onClick={searchClicked} bsStyle="primary" bsSize="xsmall">{ SEARCH_BUTTON_TEXT }</Button>
     </Col>
   </Row>);
 }
