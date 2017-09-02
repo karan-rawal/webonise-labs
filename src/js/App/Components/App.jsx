@@ -4,6 +4,7 @@ import StudentDetailsPage from '../../StudentDetailsPage/Components/StudentDetai
 import StudentsListPageContainer from '../../StudentsListPage/Container/StudentsListPage';
 import { ROUTES } from '../Constants';
 import { Row, Col } from 'react-bootstrap';
+import '../../results.json';
 import './App.scss';
 
 /**

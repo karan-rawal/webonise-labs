@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import StudentsFilterActions from '../Actions/StudentsFilter';
+import StudentsListPageActions from '../Actions/StudentsListPage';
 import StudentsListPage from '../Components/StudentsListPage';
 
 class StudentsListPageContainer extends React.Component {
@@ -9,6 +10,10 @@ class StudentsListPageContainer extends React.Component {
     this.state = {}; // to avoid eslint errors
     console.log(props.state);
     this.onFilterToggle = this.onFilterToggle.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.getStudentsData();
   }
 
   onFilterToggle(event) {
@@ -29,6 +34,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   filterAction: (filterType) => { dispatch(StudentsFilterActions.toggleFilterAction(filterType)); },
+  getStudentsData: () => { StudentsListPageActions.getStudentsAction(dispatch); },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsListPageContainer);
