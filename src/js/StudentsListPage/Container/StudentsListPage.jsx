@@ -11,6 +11,7 @@ class StudentsListPageContainer extends React.Component {
     console.log(props.state);
     this.onFilterToggle = this.onFilterToggle.bind(this);
     this.searchCallback = this.searchCallback.bind(this);
+    this.onStudentSelect = this.onStudentSelect.bind(this);
   }
 
   componentWillMount() {
@@ -22,13 +23,22 @@ class StudentsListPageContainer extends React.Component {
     this.props.filterAction(filterType);
   }
 
+  onStudentSelect(event) {
+    console.log(event);
+    const student = JSON.parse(event.target.getAttribute('data'));
+    this.context.router.history.push({
+      pathname: '/student',
+      state: { student },
+    });
+  }
+
   searchCallback(searchValue) {
     this.props.setSearchKeyAction(searchValue);
   }
 
   render() {
     return (
-      <StudentsListPage searchCallback={this.searchCallback} onFilterToggle={this.onFilterToggle} state={this.props.state} />
+      <StudentsListPage onStudentSelect={this.onStudentSelect} searchCallback={this.searchCallback} onFilterToggle={this.onFilterToggle} state={this.props.state} />
     );
   }
 }
@@ -42,5 +52,11 @@ const mapDispatchToProps = dispatch => ({
   getStudentsData: () => { StudentsListPageActions.getStudentsAction(dispatch); },
   setSearchKeyAction: (searchKey) => { dispatch(StudentsListPageActions.setSearchKeyAction(searchKey)); },
 });
+
+StudentsListPageContainer.contextTypes = {
+  router: React.PropTypes.shape({
+    history: React.PropTypes.object.isRequired,
+  }),
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsListPageContainer);

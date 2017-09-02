@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Table } from 'react-bootstrap';
 import { GRADE } from '../Constants';
+import './StudentsTable.scss';
 
 
 /**
@@ -100,11 +101,19 @@ export default function StudentsTable(props) {
     if (data && data.results) {
       const results = data.results;
 
-      rows = results.map((value, key) => (<tr key={key}>
-        <td>{value.firstName}</td>
-        <td>{value.lastName}</td>
-        <td>{value.percentage}</td>
-      </tr>));
+      rows = results.map((value, key) => {
+        let classToAdd = '';
+        if (value.grade === GRADE.FAILED) {
+          classToAdd = 'failed-row';
+        }
+        const studentData = JSON.stringify(value);
+        const element = (<tr className={classToAdd} key={key}>
+          <td><a tabIndex={0} role="button" data={studentData} onClick={props.onStudentSelect}>{value.firstName}</a></td>
+          <td>{value.lastName}</td>
+          <td>{value.percentage}</td>
+        </tr>);
+        return element;
+      });
     }
 
     if (rows.length <= 0) {
@@ -127,7 +136,7 @@ export default function StudentsTable(props) {
               <th>Percentage</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="students-table-body">
             {renderData()}
           </tbody>
         </Table>
