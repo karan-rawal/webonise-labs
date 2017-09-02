@@ -78,6 +78,10 @@ const moduleConfig = {
       test: /\.(jpg|png|svg)$/,
       use: 'file-loader?name=[name]-[hash].[ext]&outputPath=images/&publicPath=../',
     },
+    {
+      test: /\.(json)$/,
+      use: 'file-loader?name=[name].[ext]&outputPath=json/&publicPath=../',
+    },
   ],
 };
 

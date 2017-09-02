@@ -1,12 +1,18 @@
 .custom-input-text{
     border: 1px solid #DDD;
     display: inline-block;
+    position: relative;
+    width: 100%;
     input{
         border: none;
-        padding: 0px 5px 0px 5px;
+        width: 80%;
+        padding: 0px 20px 0px 5px;
+        width: 100%;
     }
     .glyphicon{
-        margin: 0px 5px 0px 5px;
+        position: absolute;
+        right: 5px;
+        top: 3px;
         vertical-align: text-top;
     }
 }
