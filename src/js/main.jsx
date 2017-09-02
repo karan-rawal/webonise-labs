@@ -1,8 +1,20 @@
 import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
 import App from './App/Components/App';
+import StudentDetailsPageReducer from './StudentDetailsPage/Reducers/StudentDetailsPage';
+import StudentsListPageReducer from './StudentsListPage/Reducers/StudentsListPage';
 
-const TEST_MESSAGE = 'This is a test message.';
+const combinedReducers = combineReducers({
+  studentDetails: StudentDetailsPageReducer,
+  studentsList: StudentsListPageReducer,
+});
 
-ReactDOM.render(<App message={TEST_MESSAGE} />, document.getElementById('root'));
+const store = createStore(combinedReducers);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('root'));
