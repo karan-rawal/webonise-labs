@@ -72,7 +72,7 @@ const processMarks = (marks) => {
  * @returns The processed results.
  */
 const processResults = (results) => {
-  const processedResults = results.map((marks, keys) => {
+  const processedResults = results.map((marks) => {
     const processedMarks = processMarks(marks);
     return processedMarks;
   });

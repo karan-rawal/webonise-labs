@@ -21,7 +21,7 @@ export default function CustomInputBox(props) {
   }
 
   const keyPressed = (event) => {
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       props.onEnterPressed();
     }
   };

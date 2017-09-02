@@ -13,18 +13,18 @@ export default function StudentsFilter(props) {
   return (
     <Row>
       <Col xs={6}>
-        <Checkbox id={FILTER_TYPES.DISTINCTION} onClick={props.onFilterToggle} checked={props.filters[FILTER_TYPES.DISTINCTION]} title={'Distinction'}>
+        <Checkbox id={FILTER_TYPES.DISTINCTION} onClick={props.onFilterToggle} defaultChecked={props.filters[FILTER_TYPES.DISTINCTION]} title={'Distinction'}>
           {'Distinction'}
         </Checkbox>
-        <Checkbox id={FILTER_TYPES.SECOND_CLASS} onClick={props.onFilterToggle} checked={props.filters[FILTER_TYPES.SECOND_CLASS]} title={'Distinction'}>
+        <Checkbox id={FILTER_TYPES.SECOND_CLASS} onClick={props.onFilterToggle} defaultChecked={props.filters[FILTER_TYPES.SECOND_CLASS]} title={'Distinction'}>
           {'Second Class'}
         </Checkbox>
       </Col>
       <Col xs={6}>
-        <Checkbox id={FILTER_TYPES.FIRST_CLASS} onClick={props.onFilterToggle} checked={props.filters[FILTER_TYPES.FIRST_CLASS]} title={'Distinction'}>
+        <Checkbox id={FILTER_TYPES.FIRST_CLASS} onClick={props.onFilterToggle} defaultChecked={props.filters[FILTER_TYPES.FIRST_CLASS]} title={'Distinction'}>
           {'First Class'}
         </Checkbox>
-        <Checkbox id={FILTER_TYPES.FAILED} onClick={props.onFilterToggle} checked={props.filters[FILTER_TYPES.FAILED]} title={'Distinction'}>
+        <Checkbox id={FILTER_TYPES.FAILED} onChange={props.onFilterToggle} defaultChecked={props.filters[FILTER_TYPES.FAILED]} title={'Distinction'}>
           {'Fail'}
         </Checkbox>
       </Col>
