@@ -1,7 +1,8 @@
 import React from 'react';
-import { Col, Row, Table } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import StudentsSearch from './StudentsSearch';
 import StudentsFilter from './StudentsFilter';
+import StudentsTable from './StudentsTable';
 
 /**
  * The presentational react component.
@@ -14,27 +15,6 @@ export default function StudentsListPage(props) {
   return (<Col xs={12}>
     <StudentsSearch />
     <StudentsFilter onFilterToggle={props.onFilterToggle} filters={props.state.filters} />
-    <Row>
-      <Col xs={12}>
-        <Table striped bordered condensed hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Test</td>
-              <td>Test</td>
-              <td>Test</td>
-            </tr>
-          </tbody>
-        </Table>
-      </Col>
-    </Row>
+    <StudentsTable studentsData={props.state.studentsData} />
   </Col >);
 }

@@ -20,6 +20,61 @@ const handleActionToggling = (state, filterType) => {
   return state;
 };
 
+/**
+ * Processes the marks obtained in the results. For now it calculates total marks, total out of and percentage.
+ * 
+ * @param {any} marks 
+ * @returns 
+ */
+const processMarks = (marks) => {
+  const tempMarks = marks;
+
+  // process the marks
+  const subjects = Object.keys(tempMarks.marks);
+  let totalMarks = 0;
+
+  for (let i = 0; i < subjects.length; i += 1) {
+    const currentSubject = subjects[i];
+    totalMarks += tempMarks.marks[currentSubject];
+  }
+
+  const totalOutOf = 100 * subjects.length;
+  let percentage = (totalMarks / totalOutOf) * 100;
+  percentage = percentage.toFixed(2);
+
+  // attach the data
+  tempMarks.percentage = percentage;
+  tempMarks.totalMarks = totalMarks;
+  tempMarks.totalOutOf = totalOutOf;
+
+  return tempMarks;
+};
+
+/**
+ * This will process marks for each student's results.
+ * 
+ * @param {any} results 
+ * @returns The processed results.
+ */
+const processResults = (results) => {
+  const processedResults = results.map((marks, keys) => {
+    const processedMarks = processMarks(marks);
+    return processedMarks;
+  });
+
+  return processedResults;
+};
+
+/**
+ * Processes the results. Calculates and adds some data to the respective objects.
+ */
+const processStudentsData = (data) => {
+  // process the results
+  const tempData = data;
+  tempData.results = processResults(tempData.results);
+  return tempData;
+};
+
 const StudentsListPageReducer = (state = initialState, action) => {
   const tempState = {};
   Object.assign(tempState, state);
@@ -28,7 +83,7 @@ const StudentsListPageReducer = (state = initialState, action) => {
     case ACTION_TOGGLE_FILTER:
       return handleActionToggling(tempState, action.payload.filterType);
     case ACTION_SET_STUDENTS_DATA:
-      tempState.studentsData = action.payload.studentsData;
+      tempState.studentsData = processStudentsData(action.payload.studentsData);
       break;
     default:
       console.error('Invalid action for students filter reducer');
