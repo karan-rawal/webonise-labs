@@ -1,5 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { HashRouter, Switch, Route } from 'react-router-dom';
+import StudentDetailsPage from '../../StudentDetailsPage/Components/StudentDetailsPage';
+import StudentsListPage from '../../StudentsListPage/Components/StudentsListPage';
+import { ROUTES } from '../Constants';
 import './App.scss';
 
 /**
@@ -9,13 +12,16 @@ import './App.scss';
  * @param {any} props 
  * @returns 
  */
-export default function AppComponent(props) {
-  return (<div className="container app">
-    The App Component. This is the passed message: {props.message}
-  </div>);
+export default function AppComponent() {
+  //TODO - Need to handle unknown routes
+  return (
+    <HashRouter>
+      <div>
+        <Switch>
+          <Route exact path={ROUTES.STUDENTS_ROUTE} component={StudentsListPage} />
+          <Route exact path={ROUTES.STUDENT_DETAILS_ROUTE} component={StudentDetailsPage} />
+        </Switch>
+      </div>
+    </HashRouter>
+  );
 }
-
-/* Defining the property types */
-AppComponent.propTypes = {
-  message: PropTypes.string.isRequired,
-};
