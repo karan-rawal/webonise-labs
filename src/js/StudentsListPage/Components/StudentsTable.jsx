@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Table } from 'react-bootstrap';
+import CustomPropTypes from '../CustomPropTypes';
 import { GRADE } from '../Constants';
+import DataFilterer from '../Utils/DataFilterer';
 import './StudentsTable.scss';
 
 
@@ -13,71 +15,6 @@ import './StudentsTable.scss';
  */
 export default function StudentsTable(props) {
   /**
-   * Filteres the data according to the category
-   * 
-   * @param {any} resultsData 
-   * @returns Filtered list according to the selected grades.
-   */
-  const categoryFilterdData = (resultsData) => {
-    if (!resultsData || !props.filters) {
-      return resultsData;
-    }
-
-    // create filtered data
-    const filteredData = [];
-
-    // tranverse the data and fill the filtered array
-    resultsData.map((result) => {
-      // the index of '1' in '0010' determines the grade of the student
-      const indexOfOne = result.grade.indexOf('1');
-      const keys = Object.keys(props.filters);
-      // the index of '1' will help use find the key to check
-      const keyToCheck = keys[indexOfOne];
-      // lets check if the value of that key is true. If yes, push it.
-      if (props.filters[keyToCheck]) {
-        filteredData.push(result);
-      }
-
-      return result;
-    });
-
-    // return the filtered array.
-    return filteredData;
-  };
-
-  /**
-   * Filters the result by search key.
-   * 
-   * @param {any} resultsData 
-   * @returns 
-   */
-  const keyFilteredResultsData = (resultsData) => {
-    // if no search key then return data as is
-    if (!resultsData || !props.searchKey || props.searchKey.length <= 0) {
-      return resultsData;
-    }
-
-    // create filtered data
-    const filteredData = [];
-
-    // tranverse the data and fill the filtered array
-    resultsData.map((result) => {
-      const fname = result.firstName;
-      const lname = result.lastName;
-
-      // if fname or lname contains searchKey then push it to the filtered array.
-      if (fname.indexOf(props.searchKey) > -1 || lname.indexOf(props.searchKey) > -1) {
-        filteredData.push(result);
-      }
-
-      return result;
-    });
-
-    // return the filtered array.
-    return filteredData;
-  };
-
-  /**
    * Filters the data. By key and by marks.
    * 
    * @param {any} studentData 
@@ -87,15 +24,18 @@ export default function StudentsTable(props) {
     const tempStudentData = studentData;
 
     // filter by search key
-    tempStudentData.results = keyFilteredResultsData(studentData.results);
-    tempStudentData.results = categoryFilterdData(tempStudentData.results);
+    tempStudentData.results = DataFilterer.filterBySearchKey(studentData.results, props.searchKey);
+    tempStudentData.results = DataFilterer.categoryFilterdData(
+      tempStudentData.results,
+      props.filters,
+    );
     return tempStudentData;
   };
 
-  const renderData = () => {
+  const renderData = (studentsData, onStudentSelected) => {
     // create a copy of the daya
     let data = {};
-    Object.assign(data, props.studentsData);
+    Object.assign(data, studentsData);
 
     // get the filtered data
     data = filteredData(data);
@@ -118,7 +58,7 @@ export default function StudentsTable(props) {
             tabIndex={0}
             role="button"
             data={studentData}
-            onClick={props.onStudentSelect}
+            onClick={onStudentSelected}
           >{value.firstName}</a></td>
           <td>{value.lastName}</td>
           <td>{value.percentage}</td>
@@ -159,7 +99,7 @@ export default function StudentsTable(props) {
           <tbody
             className="students-table-body"
           >
-            {renderData()}
+            {renderData(props.studentsData, props.onStudentSelect)}
           </tbody>
         </Table>
       </Col>
@@ -170,16 +110,6 @@ export default function StudentsTable(props) {
 StudentsTable.propTypes = {
   onStudentSelect: PropTypes.func.isRequired,
   searchKey: PropTypes.string.isRequired,
-  filters: PropTypes.arrayOf(PropTypes.bool).isRequired,
-  studentsData: PropTypes.shape({
-    results: PropTypes.arrayOf(PropTypes.shape({
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      marks: PropTypes.shape({
-        english: PropTypes.number.isRequired,
-        hindi: PropTypes.number.isRequired,
-        mathematics: PropTypes.number.isRequired,
-      }),
-    })).isRequired,
-  }).isRequired,
+  filters: CustomPropTypes.Filters.isRequired,
+  studentsData: CustomPropTypes.StudentsData.isRequired,
 };

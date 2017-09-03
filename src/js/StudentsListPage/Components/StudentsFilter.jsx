@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox, Row, Col } from 'react-bootstrap';
+import CustomPropTypes from '../CustomPropTypes';
 import { FILTER_TYPES } from '../Constants';
 
 /**
@@ -59,5 +60,5 @@ export default function StudentsFilter(props) {
 
 StudentsFilter.propTypes = {
   onFilterToggle: PropTypes.func.isRequired,
-  filters: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  filters: CustomPropTypes.Filters.isRequired,
 };
