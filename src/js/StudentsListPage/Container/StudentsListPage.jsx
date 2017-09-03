@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import CustomPropTypes from '../CustomPropTypes';
 import StudentsFilterActions from '../Actions/StudentsFilter';
 import StudentsListPageActions from '../Actions/StudentsListPage';
 import StudentsListPage from '../Components/StudentsListPage';
@@ -69,21 +70,7 @@ StudentsListPageContainer.propTypes = {
   setSearchKeyAction: PropTypes.func.isRequired,
   filterAction: PropTypes.func.isRequired,
   getStudentsData: PropTypes.func.isRequired,
-  state: PropTypes.shape({
-    filters: PropTypes.arrayOf(PropTypes.bool).isRequired,
-    studentsData: PropTypes.shape({
-      results: PropTypes.arrayOf(PropTypes.shape({
-        firstName: PropTypes.string.isRequired,
-        lastName: PropTypes.string.isRequired,
-        marks: PropTypes.shape({
-          english: PropTypes.number.isRequired,
-          hindi: PropTypes.number.isRequired,
-          mathematics: PropTypes.number.isRequired,
-        }),
-      })).isRequired,
-    }),
-    searchKey: PropTypes.string.isRequired,
-  }).isRequired,
+  state: CustomPropTypes.State.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsListPageContainer);

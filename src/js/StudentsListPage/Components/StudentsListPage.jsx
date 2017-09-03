@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col } from 'react-bootstrap';
+import CustomPropTypes from '../CustomPropTypes';
 import StudentsSearch from './StudentsSearch';
 import StudentsFilter from './StudentsFilter';
 import StudentsTable from './StudentsTable';
@@ -35,21 +36,7 @@ export default function StudentsListPage(props) {
 }
 
 StudentsListPage.propTypes = {
-  state: PropTypes.shape({
-    filters: PropTypes.arrayOf(PropTypes.bool).isRequired,
-    studentsData: PropTypes.shape({
-      results: PropTypes.arrayOf(PropTypes.shape({
-        firstName: PropTypes.string.isRequired,
-        lastName: PropTypes.string.isRequired,
-        marks: PropTypes.shape({
-          english: PropTypes.number.isRequired,
-          hindi: PropTypes.number.isRequired,
-          mathematics: PropTypes.number.isRequired,
-        }),
-      })).isRequired,
-    }),
-    searchKey: PropTypes.string.isRequired,
-  }).isRequired,
+  state: CustomPropTypes.State.isRequired,
   onFilterToggle: PropTypes.func.isRequired,
   onStudentSelect: PropTypes.func.isRequired,
   searchCallback: PropTypes.func.isRequired,

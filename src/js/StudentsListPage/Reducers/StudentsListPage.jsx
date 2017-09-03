@@ -1,4 +1,5 @@
-import { ACTION_TOGGLE_FILTER, FILTER_TYPES, ACTION_SET_STUDENTS_DATA, ACTION_SET_SEARCH_KEY, GRADE_PERC, GRADE } from '../Constants';
+import { ACTION_TOGGLE_FILTER, FILTER_TYPES, ACTION_SET_STUDENTS_DATA, ACTION_SET_SEARCH_KEY, GRADE } from '../Constants';
+import ResultsProcessor from '../Utils/ResultsProcessor';
 
 const filters = {};
 filters[FILTER_TYPES.DISTINCTION] = true;
@@ -23,71 +24,13 @@ const handleActionToggling = (state, filterType) => {
   return state;
 };
 
-const getGrade = (percentage) => {
-  if (percentage >= GRADE_PERC.DISTINCTION_PERC) {
-    return GRADE.DISTINCTION;
-  } else if (percentage >= GRADE_PERC.FIRST_CLASS_PERC) {
-    return GRADE.FIRST_CLASS;
-  } else if (percentage >= GRADE_PERC.SECOND_CLASS_PERC) {
-    return GRADE.SECOND_CLASS;
-  }
-  return GRADE.FAILED;
-};
-
-/**
- * Processes the marks obtained in the results. 
- * For now it calculates total marks, total out of and percentage.
- * 
- * @param {any} marks 
- * @returns 
- */
-const processMarks = (marks) => {
-  const tempMarks = marks;
-
-  // process the marks
-  const subjects = Object.keys(tempMarks.marks);
-  let totalMarks = 0;
-
-  for (let i = 0; i < subjects.length; i += 1) {
-    const currentSubject = subjects[i];
-    totalMarks += tempMarks.marks[currentSubject];
-  }
-
-  const totalOutOf = 100 * subjects.length;
-  let percentage = (totalMarks / totalOutOf) * 100;
-  percentage = percentage.toFixed(2);
-
-  // attach the data
-  tempMarks.percentage = percentage;
-  tempMarks.totalMarks = totalMarks;
-  tempMarks.totalOutOf = totalOutOf;
-  tempMarks.grade = getGrade(tempMarks.percentage);
-
-  return tempMarks;
-};
-
-/**
- * This will process marks for each student's results.
- * 
- * @param {any} results 
- * @returns The processed results.
- */
-const processResults = (results) => {
-  const processedResults = results.map((marks) => {
-    const processedMarks = processMarks(marks);
-    return processedMarks;
-  });
-
-  return processedResults;
-};
-
 /**
  * Processes the results. Calculates and adds some data to the respective objects.
  */
 const processStudentsData = (data) => {
   // process the results
   const tempData = data;
-  tempData.results = processResults(tempData.results);
+  tempData.results = ResultsProcessor.processResults(tempData.results);
   return tempData;
 };
 
