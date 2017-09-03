@@ -6,7 +6,9 @@ import App from './App';
 describe('App Component', () => {
   it('Should Render', () => {
     const item = renderIntoDocument(<div>
-      <App message={'some test message'} />
+      <App
+        message={'some test message'}
+      />
     </div>);
     expect(item).toExist();
   });

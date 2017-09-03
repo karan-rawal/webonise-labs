@@ -22,16 +22,35 @@ export default function StudentDetailsPage(props, context) {
   }
   const student = state.student;
 
-  return (<Col className="student-details-page" xs={12}>
+  return (<Col
+    className="student-details-page"
+    xs={12}
+  >
     <Row>
-      <Col xs={12}>
-        <Link className="back-link" to={ROUTES.STUDENTS_ROUTE}>Click here to go Back</Link>
+      <Col
+        xs={12}
+      >
+        <Link
+          className="back-link"
+          to={ROUTES.STUDENTS_ROUTE}
+        >Click here to go Back</Link>
       </Col>
-      <Col xs={12}>
-        <div className="student-name">Name: {student.firstName} {student.lastName} </div>
+      <Col
+        xs={12}
+      >
+        <div
+          className="student-name"
+        >Name: {student.firstName} {student.lastName} </div>
       </Col>
-      <Col xs={12}>
-        <Table striped bordered condensed hover>
+      <Col
+        xs={12}
+      >
+        <Table
+          striped
+          bordered
+          condensed
+          hover
+        >
           <thead>
             <tr>
               <th>English</th>

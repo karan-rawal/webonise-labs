@@ -27,19 +27,41 @@ export default function StudentSearch(props) {
     props.searchCallback(searchKey);
   };
 
-  return (<Row className="students-search">
-    <Col className="no-padding-right" xs={10}>
-      <CustomInputBox onEnterPressed={searchClicked} defaultValue={props.searchKey} glyphicon={SEARCH_GLYPHICON} onTextChange={onTextChange} placeholder={SEARCH_PLACEHOLDER} />
-    </Col>
-    <Col className="no-padding-left" xs={2}>
-      <Button className="search-button" onClick={searchClicked} bsStyle="primary" bsSize="xsmall">{ SEARCH_BUTTON_TEXT }</Button>
-    </Col>
-  </Row>);
+  return (
+    <Row
+      className="students-search"
+    >
+      <Col
+        className="no-padding-right"
+        xs={10}
+      >
+        <CustomInputBox
+          onEnterPressed={searchClicked}
+          defaultValue={props.searchKey}
+          glyphicon={SEARCH_GLYPHICON}
+          onTextChange={onTextChange}
+          placeholder={SEARCH_PLACEHOLDER}
+        />
+      </Col>
+      <Col
+        className="no-padding-left"
+        xs={2}
+      >
+        <Button
+          className="search-button"
+          onClick={searchClicked}
+          bsStyle="primary"
+          bsSize="xsmall"
+        >{ SEARCH_BUTTON_TEXT }</Button>
+      </Col>
+    </Row>
+  );
 }
 
 
 /* Defining the property types */
 StudentSearch.propTypes = {
   searchCallback: PropTypes.func.isRequired,
+  searchKey: PropTypes.string.isRequired,
 };
 
