@@ -17,7 +17,9 @@ export default function CustomInputBox(props) {
   // intialize glyph element only when some glyphi is provided
   if (props.glyphicon) {
     const inputGlyphClasses = `glyphicon ${props.glyphicon}`;
-    glyphElementToRender = <span className={inputGlyphClasses} />;
+    glyphElementToRender = (<span
+      className={inputGlyphClasses}
+    />);
   }
 
   const keyPressed = (event) => {
@@ -28,8 +30,15 @@ export default function CustomInputBox(props) {
 
   // return the element to be rendered
   return (
-    <div className="no-padding-right custom-input-text">
-      <input onKeyPress={keyPressed} defaultValue={props.defaultValue} onChange={props.onTextChange} placeholder={props.placeholder} />
+    <div
+      className="no-padding-right custom-input-text"
+    >
+      <input
+        onKeyPress={keyPressed}
+        defaultValue={props.defaultValue}
+        onChange={props.onTextChange}
+        placeholder={props.placeholder}
+      />
       {glyphElementToRender}
     </div>
   );
@@ -40,6 +49,8 @@ CustomInputBox.propTypes = {
   glyphicon: PropTypes.string,
   onTextChange: PropTypes.func,
   placeholder: PropTypes.string,
+  defaultValue: PropTypes.string,
+  onEnterPressed: PropTypes.func.isRequired,
 };
 
 /* Define the default values */
@@ -47,4 +58,5 @@ CustomInputBox.defaultProps = {
   glyphicon: undefined,
   onTextChange: undefined,
   placeholder: undefined,
+  defaultValue: undefined,
 };

@@ -35,7 +35,8 @@ const getGrade = (percentage) => {
 };
 
 /**
- * Processes the marks obtained in the results. For now it calculates total marks, total out of and percentage.
+ * Processes the marks obtained in the results. 
+ * For now it calculates total marks, total out of and percentage.
  * 
  * @param {any} marks 
  * @returns 

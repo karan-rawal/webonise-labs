@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
 import StudentsFilterActions from '../Actions/StudentsFilter';
 import StudentsListPageActions from '../Actions/StudentsListPage';
 import StudentsListPage from '../Components/StudentsListPage';
@@ -37,7 +37,12 @@ class StudentsListPageContainer extends React.Component {
 
   render() {
     return (
-      <StudentsListPage onStudentSelect={this.onStudentSelect} searchCallback={this.searchCallback} onFilterToggle={this.onFilterToggle} state={this.props.state} />
+      <StudentsListPage
+        onStudentSelect={this.onStudentSelect}
+        searchCallback={this.searchCallback}
+        onFilterToggle={this.onFilterToggle}
+        state={this.props.state}
+      />
     );
   }
 }
@@ -49,13 +54,36 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   filterAction: (filterType) => { dispatch(StudentsFilterActions.toggleFilterAction(filterType)); },
   getStudentsData: () => { StudentsListPageActions.getStudentsAction(dispatch); },
-  setSearchKeyAction: (searchKey) => { dispatch(StudentsListPageActions.setSearchKeyAction(searchKey)); },
+  setSearchKeyAction: (searchKey) => {
+    dispatch(StudentsListPageActions.setSearchKeyAction(searchKey));
+  },
 });
 
 StudentsListPageContainer.contextTypes = {
   router: PropTypes.shape({
     history: PropTypes.object.isRequired,
   }),
+};
+
+StudentsListPageContainer.propTypes = {
+  setSearchKeyAction: PropTypes.func.isRequired,
+  filterAction: PropTypes.func.isRequired,
+  getStudentsData: PropTypes.func.isRequired,
+  state: PropTypes.shape({
+    filters: PropTypes.arrayOf(PropTypes.bool).isRequired,
+    studentsData: PropTypes.shape({
+      results: PropTypes.arrayOf(PropTypes.shape({
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+        marks: PropTypes.shape({
+          english: PropTypes.number.isRequired,
+          hindi: PropTypes.number.isRequired,
+          mathematics: PropTypes.number.isRequired,
+        }),
+      })).isRequired,
+    }),
+    searchKey: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsListPageContainer);

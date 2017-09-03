@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col, Table } from 'react-bootstrap';
 import { GRADE } from '../Constants';
 import './StudentsTable.scss';
@@ -36,6 +37,8 @@ export default function StudentsTable(props) {
       if (props.filters[keyToCheck]) {
         filteredData.push(result);
       }
+
+      return result;
     });
 
     // return the filtered array.
@@ -107,8 +110,16 @@ export default function StudentsTable(props) {
           classToAdd = 'failed-row';
         }
         const studentData = JSON.stringify(value);
-        const element = (<tr className={classToAdd} key={key}>
-          <td><a tabIndex={0} role="button" data={studentData} onClick={props.onStudentSelect}>{value.firstName}</a></td>
+        const element = (<tr
+          className={classToAdd}
+          key={key}
+        >
+          <td><a
+            tabIndex={0}
+            role="button"
+            data={studentData}
+            onClick={props.onStudentSelect}
+          >{value.firstName}</a></td>
           <td>{value.lastName}</td>
           <td>{value.percentage}</td>
         </tr>);
@@ -118,7 +129,9 @@ export default function StudentsTable(props) {
 
     if (rows.length <= 0) {
       return (<tr>
-        <td colSpan={3}>No results found.</td>
+        <td
+          colSpan={3}
+        >No results found.</td>
       </tr>);
     }
     return rows;
@@ -127,8 +140,15 @@ export default function StudentsTable(props) {
 
   return (
     <Row>
-      <Col xs={12}>
-        <Table striped bordered condensed hover>
+      <Col
+        xs={12}
+      >
+        <Table
+          striped
+          bordered
+          condensed
+          hover
+        >
           <thead>
             <tr>
               <th>First Name</th>
@@ -136,7 +156,9 @@ export default function StudentsTable(props) {
               <th>Percentage</th>
             </tr>
           </thead>
-          <tbody className="students-table-body">
+          <tbody
+            className="students-table-body"
+          >
             {renderData()}
           </tbody>
         </Table>
@@ -144,3 +166,20 @@ export default function StudentsTable(props) {
     </Row>
   );
 }
+
+StudentsTable.propTypes = {
+  onStudentSelect: PropTypes.func.isRequired,
+  searchKey: PropTypes.string.isRequired,
+  filters: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  studentsData: PropTypes.shape({
+    results: PropTypes.arrayOf(PropTypes.shape({
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      marks: PropTypes.shape({
+        english: PropTypes.number.isRequired,
+        hindi: PropTypes.number.isRequired,
+        mathematics: PropTypes.number.isRequired,
+      }),
+    })).isRequired,
+  }).isRequired,
+};
